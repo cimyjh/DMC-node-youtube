@@ -90,8 +90,10 @@ router.post("/thumbnail", (req, res) => {
     });
 });
 
+//Video를 DB에서 가져와서 클라이언트에게 내보낸다.
 router.get("/getVideos", (req, res) => {
   Video.find()
+    //비디오객체를 조회하지만, User의 정보를 populate로 가져올 수 있다.
     .populate("writer")
     .exec((err, videos) => {
       if (err) return res.status(400).send(err);
@@ -112,7 +114,8 @@ router.post("/uploadVideo", (req, res) => {
   });
 });
 
-router.post("/getVideo", (req, res) => {
+//DetailVideoPage에 객체들을 DB에서 가져와서 뿌려준다.
+router.post("/getVideoDetail", (req, res) => {
   Video.findOne({ _id: req.body.videoId })
     .populate("writer")
     .exec((err, video) => {
