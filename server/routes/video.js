@@ -132,11 +132,13 @@ router.post("/getSubscriptionVideos", (req, res) => {
 
     let subscribedUser = [];
 
+    //map을 사용한다.
     subscribers.map((subscriber, i) => {
       subscribedUser.push(subscriber.userTo);
     });
 
     //Need to Fetch all of the Videos that belong to the Users that I found in previous step.
+    //여러 개를 찾을 때 MongoDB기능인 $in을 사용한다.
     Video.find({ writer: { $in: subscribedUser } })
       .populate("writer")
       .exec((err, videos) => {

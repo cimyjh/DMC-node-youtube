@@ -44,6 +44,9 @@ function DetailVideoPage(props) {
 
   //Video 객체가 있으면 실행 되도록 return을 if문으로 감싼다.
   if (Video.writer) {
+    // 자기를 자기가 구독할 수 없게
+    // const subscribeButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} userFrom{localStorage.getItem('userId')} />
+
     return (
       <Row>
         <Col lg={18} xs={24}>
@@ -65,7 +68,10 @@ function DetailVideoPage(props) {
                   userId={localStorage.getItem("userId")}
                 />,
                 <Subscriber
+                  //props로 넘긴다.
+                  //URL로 저장된 것
                   userTo={Video.writer._id}
+                  //세션으로 받는다.
                   userFrom={localStorage.getItem("userId")}
                 />,
               ]}

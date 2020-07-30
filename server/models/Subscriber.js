@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//데이터를 User에서 가져오는 것이다.
 const subscriberSchema = mongoose.Schema(
   {
     userTo: {
