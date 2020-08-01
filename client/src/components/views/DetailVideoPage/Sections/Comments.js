@@ -37,6 +37,8 @@ function Comments(props) {
     axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
         setComment("");
+
+        //리프레시에 대한 것을 props으로 부모에게 넘겨서 새로고침이 된다.
         props.refreshFunction(response.data.result);
       } else {
         alert("Failed to save Comment");
@@ -55,7 +57,10 @@ function Comments(props) {
       {props.CommentLists &&
         props.CommentLists.map(
           (comment, index) =>
+            //댓글 간의 깊이가 따로 있어야 한다.
+            //대댓글 경우 responseTO가 있는데 이걸 사용하면 된다.
             !comment.responseTo && (
+              //감싸줘야 하는 것이 React.Fragment이다.
               <React.Fragment>
                 <SingleComment
                   comment={comment}
@@ -65,6 +70,7 @@ function Comments(props) {
                 <ReplyComment
                   CommentLists={props.CommentLists}
                   postId={props.postId}
+                  //부모 코멘트를 정의한다.
                   parentCommentId={comment._id}
                   refreshFunction={props.refreshFunction}
                 />

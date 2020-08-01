@@ -18,6 +18,7 @@ function DetailVideoPage(props) {
   const [CommentLists, setCommentLists] = useState([]);
 
   //DOM 실행
+  //페이지가 로딩될 때 바로 실행되는 것
   useEffect(() => {
     axios.post("/api/video/getVideoDetail", videoVariable).then((response) => {
       if (response.data.success) {
@@ -38,6 +39,9 @@ function DetailVideoPage(props) {
     });
   }, []);
 
+  //refreshFunction 업데이트를 한다.
+  //댓글 기능을 가져와야 한다.
+  //이걸 자식에서 받는다.
   const updateComment = (newComment) => {
     setCommentLists(CommentLists.concat(newComment));
   };
